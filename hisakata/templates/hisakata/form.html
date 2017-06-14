@@ -1,0 +1,19 @@
+{% extends "hisakata/base.html" %}
+
+{% block content %}
+
+    <form method="post" action="{% url 'hisakata:edit' year month day round_num %}">
+        {% csrf_token %}
+
+        <h2>{{ round_num }}試合目</h2>
+
+        {% for form in formset %}
+            <ul>
+                <li>{{ form.1.name }} vs {{ form.2.name }} 勝者：{{ form.0.winner }} {{ form.0.result }}枚</li>
+            </ul>
+        {% endfor %}
+
+        <button type="submit">save</button>
+    </form>
+
+{% endblock %}

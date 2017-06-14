@@ -1,0 +1,26 @@
+{% extends "hisakata/base.html" %}
+
+{% block content %}
+
+    <h1>試合記録詳細{{ date.date }}</h1>
+
+    <ul>
+        {% for round in date.round_set.all %}
+            <p><a type="button"
+                  href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目</a>
+            </p>
+            {% for match in round.match_set.all %}
+                {% if match.winner == 0 %}
+                    <li>  {{ match.player1 }} vs {{ match.player2 }}</li>
+                {% elif match.winner == 1 %}
+                    <li>○ {{ match.player1 }} vs {{ match.player2 }} ({{ match.result }})</li>
+                {% elif match.winner == 2 %}
+                    <li>  {{ match.player1 }} vs {{ match.player2 }} ◯ ({{ match.result }})</li>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+        <!--<a href="{% url "hisakata:createround" date.date.year date.date.month date.date.day new_game %}">新規</a>-->
+
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "hisakata/base.html" %}
+
+{% block content %}
+
+    <h1>月別記録</h1>
+    <ul>
+    {% for date in object_list %}
+        <li><a href="{% url "hisakata:table" date.date.year date.date.month %}">{{ date.date.month }}月</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

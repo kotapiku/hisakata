@@ -1,0 +1,12 @@
+{% extends "hisakata/base.html" %}
+
+{% block content %}
+
+    <h1>試合記録</h1>
+    <ul>
+    {% for year in years %}
+        <li><a href="{% url "hisakata:tablelist" year %}">{{ year }}年</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
