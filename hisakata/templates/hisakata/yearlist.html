@@ -3,11 +3,11 @@
 {% block content %}
 
     <h1>試合記録</h1>
-    <a href="{% url "hisakata:create" %}">新規</a>
+
     <ul>
-    {% for year in years %}
-        <li><a href="{% url "hisakata:datelist" year %}">{{ year }}年</a></li>
-    {% endfor %}
+        {% for year in years %}
+            <li><a href="{% url "hisakata:datelist" year %}">{{ year }}年</a></li>
+        {% endfor %}
     </ul>
 
 {% endblock %}

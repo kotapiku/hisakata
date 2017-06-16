@@ -1,12 +1,15 @@
 {% extends "hisakata/base.html" %}
 
 {% block content %}
+    {{ error_message }}
 
-    <form method="post">
-    {% csrf_token %}
+    <form method="post" action="{% url 'hisakata:create' year %}">
+        {% csrf_token %}
+        <label>日付 :<input type="date" name="date" min="{{ year }}-01-01" max="{{ year }}-12-31"></label>
 
-    {{ form }}
-    <button type="submit">save</button>
+        <button type="submit">save</button>
     </form>
+
+    <a href="{% url "hisakata:datelist" year %}">戻る</a>
 
 {% endblock %}

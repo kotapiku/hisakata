@@ -3,11 +3,12 @@
 {% block content %}
 
     <h1>試合記録</h1>
-    <a href="{% url "hisakata:create" %}">新規</a>
+    <a href="{% url "hisakata:create" year %}">新規</a>
     <ul>
-    {% for date in object_list %}
-        <li><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日</a></li>
-    {% endfor %}
+        {% for date in dates %}
+            <li><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }})</a>
+            </li>
+        {% endfor %}
     </ul>
-
+    <a href="{% url "hisakata:yearlist" %}">戻る</a>
 {% endblock %}

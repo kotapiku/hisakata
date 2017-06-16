@@ -9,6 +9,7 @@
             <p><a type="button"
                   href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目</a>
             </p>
+            <p>{{ round.comment }}</p>
             {% for match in round.match_set.all %}
                 {% if match.winner == 0 %}
                     <li>  {{ match.player1 }} vs {{ match.player2 }}</li>
@@ -19,8 +20,10 @@
                 {% endif %}
             {% endfor %}
         {% endfor %}
-        <!--<a href="{% url "hisakata:createround" date.date.year date.date.month date.date.day new_game %}">新規</a>-->
+        <a href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a>
 
     </ul>
+
+    <a href="{% url "hisakata:datelist" date.date.year %}">戻る</a>
 
 {% endblock %}

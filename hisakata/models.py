@@ -10,16 +10,17 @@ nowyear = datetime.datetime.today().year
 class Date(models.Model):
     date = models.DateField()
 
-    def get_absolute_url(self):
-        return reverse("hisakata:datelist")
-
     def __str__(self):
         return str(self.date)
+
+    class Meta:
+        ordering = ['date']
 
 
 class Round(models.Model):
     class_date = models.ForeignKey('Date', on_delete=models.CASCADE)
     round = models.IntegerField(default=0)
+    comment = models.TextField(default='', null=True, blank=True)
 
     def admin_date(self):
         return self.class_date.date
@@ -31,6 +32,9 @@ class Round(models.Model):
 
     def __str__(self):
         return str(self.round)
+
+    class Meta:
+        ordering = ['round']
 
 
 class Match(models.Model):
@@ -45,23 +49,18 @@ class Match(models.Model):
     result = models.IntegerField(default=0)
 
     class Meta:
-        ordering = ('id',)
-
-    def get_absolute_url(self):
-        return reverse("hisakata:detail", kwargs={'year': self.round.class_date.date.year,
-                                                  'month': self.round.class_date.date.month,
-                                                  'day': self.round.class_date.date.day})
+        ordering = ['id']
 
     def admin_date(self):
         return self.round.class_date.date
 
     def player1(self):
         return self.playing_set.get(player_num=1).player.name
-        #return Playing.objects.get(match_id=self.id, player_num=1).player.name
+        # return Playing.objects.get(match_id=self.id, player_num=1).player.name
 
     def player2(self):
         return self.playing_set.get(player_num=2).player.name
-        #return Playing.objects.get(match_id=self.id, player_num=2).player.name
+        # return Playing.objects.get(match_id=self.id, player_num=2).player.name
 
     def round_id(self):
         return self.round.id
@@ -72,7 +71,7 @@ class Player(models.Model):
     match = models.ManyToManyField('Match', through='Playing', through_fields=('player', 'match'))
 
     class Meta:
-        ordering = ('name',)
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -88,11 +87,20 @@ class Playing(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     player_num = models.IntegerField(choices=PLAYER_CHOICES, default=1)
 
+    class Meta:
+        ordering = ['player_num']
+
 
 class DateForm(ModelForm):
     class Meta:
         model = Date
         fields = ['date', ]
+
+
+class RoundForm(ModelForm):
+    class Meta:
+        model = Round
+        fields = ['round', 'comment', ]
 
 
 class MatchForm(ModelForm):
@@ -101,13 +109,13 @@ class MatchForm(ModelForm):
         fields = ['winner', 'result', ]
 
 
+class PlayingForm(ModelForm):
+    class Meta:
+        model = Playing
+        fields = ['player', ]
+
+
 class PlayerForm(ModelForm):
     class Meta:
         model = Player
         fields = ['name', ]
-
-
-class PlayingForm(ModelForm):
-    class Meta:
-        model = Playing
-        fields = ['player_num', ]
