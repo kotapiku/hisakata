@@ -1,0 +1,16 @@
+{% extends "hisakata/base.html" %}
+
+{% block content %}
+
+    <h1>名簿</h1>
+    <form method="post" action="{% url 'hisakata:player' %}">
+        {% csrf_token %}
+        <ul>
+            {% for player in players %}
+                <li>{{ player.name }} {{ player.grade }}</li>
+            {% endfor %}
+        </ul>
+        <button type="submit">save</button>
+        <br>
+    </form>
+{% endblock %}

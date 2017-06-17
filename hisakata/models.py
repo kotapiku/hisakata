@@ -19,8 +19,8 @@ class Date(models.Model):
 
 class Round(models.Model):
     class_date = models.ForeignKey('Date', on_delete=models.CASCADE)
-    round = models.IntegerField(default=0)
-    comment = models.TextField(default='', null=True, blank=True)
+    round = models.CharField(default='1', max_length=3)
+    comment = models.TextField(default='詠)', null=True, blank=True)
 
     def admin_date(self):
         return self.class_date.date
@@ -56,22 +56,32 @@ class Match(models.Model):
 
     def player1(self):
         return self.playing_set.get(player_num=1).player.name
-        # return Playing.objects.get(match_id=self.id, player_num=1).player.name
+
 
     def player2(self):
         return self.playing_set.get(player_num=2).player.name
-        # return Playing.objects.get(match_id=self.id, player_num=2).player.name
+
 
     def round_id(self):
         return self.round.id
 
 
 class Player(models.Model):
+    GRADE_CHOICE = [
+        (0, '未登録'),
+        (1, '新入生'),
+        (2, '2年生'),
+        (3, '3年生'),
+        (4, '4年生'),
+        (5, '院生・社会人'),
+        (6, 'ゲスト'),
+    ]
     name = models.CharField(max_length=20)
     match = models.ManyToManyField('Match', through='Playing', through_fields=('player', 'match'))
+    grade = models.IntegerField(choices=GRADE_CHOICE, default=0)  #基本学年(1-4,5),ゲスト6,未登録0
 
     class Meta:
-        ordering = ['name']
+        ordering = ['grade']
 
     def __str__(self):
         return self.name
@@ -87,8 +97,13 @@ class Playing(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     player_num = models.IntegerField(choices=PLAYER_CHOICES, default=1)
 
+
+    @property
+    def date(self):
+        return self.match.round.class_date.date
+
     class Meta:
-        ordering = ['player_num']
+        ordering = ['player_num',]
 
 
 class DateForm(ModelForm):
@@ -118,4 +133,4 @@ class PlayingForm(ModelForm):
 class PlayerForm(ModelForm):
     class Meta:
         model = Player
-        fields = ['name', ]
+        fields = ['name', 'grade',]

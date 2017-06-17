@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from . import models
 from django.template.defaulttags import register
 
+youbi = ['月', '火', '水', '木', '金', '土', '日']
+
 
 @register.filter
 def get_item(list, num):
@@ -28,8 +30,14 @@ def tableyearlist(request):
 
 def datelistview(request, year):
     dates = models.Date.objects.filter(date__year=year)
-    youbi = ['月', '火', '水', '木', '金', '土', '日']
-    return render(request, 'hisakata/datelist.html', {'dates': dates, 'year': year, 'youbi': youbi})
+    caution = []
+    for date in dates:
+        if date.round_set.count() == 0:
+            caution.append('!')
+        else:
+            caution.append('')
+    return render(request, 'hisakata/datelist.html',
+                  {'dates': dates, 'year': year, 'youbi': youbi, 'caution': caution, })
 
 
 def datecreateview(request, year):
@@ -60,9 +68,24 @@ class MonthListView(generic.ListView):
 
 
 def detailview(request, year, month, day):
-    date = get_object_or_404(models.Date, date=datetime.date(int(year), int(month), int(day)))
-    new_game = date.round_set.last().round + 1
-    return render(request, 'hisakata/detail.html', {'date': date, 'new_game': new_game, })
+    date_num = datetime.date(int(year), int(month), int(day))
+    date = get_object_or_404(models.Date, date=date_num)
+    #
+    # for round in date.round_set.all():
+    #     flag = False
+    #     for match in models.Match.objects.filter(round__round=round, round__class_date=date, ):
+    #         for playing in match.playing_set.all():
+    #             if not playing.player.name:
+    #                 flag = True
+    #         if flag:
+    #             match.playing_set.all().delete()
+    #             match.delete()
+
+    if date.round_set.count() == 0:
+        new_game = 1
+    else:
+        new_game = int(date.round_set.last().round[0]) + 1
+    return render(request, 'hisakata/detail.html', {'date': date, 'new_game': new_game, 'youbi': youbi})
 
 
 def formview(request, year, month, day, round_n):
@@ -71,8 +94,9 @@ def formview(request, year, month, day, round_n):
     formset = []
 
     if request.method == 'GET':
+        playerlist = models.Player.objects.all()
         round = models.Round.objects.filter(round=round_n, class_date__date=date)
-        extra = 5
+        extra = 10
         if round.count() == 0:  # 新規
             models.Round.objects.create(round=round_n, class_date=models.Date.objects.get(date=date))
             round = models.Round.objects.get(round=round_n, class_date__date=date)
@@ -89,7 +113,8 @@ def formview(request, year, month, day, round_n):
                                                           'round_num': round_n,
                                                           'roundform': roundform,
                                                           'comment': comment,
-                                                          'formset': formset, })
+                                                          'formset': formset,
+                                                          'playerlist': playerlist, })
         else:  # 既存
             round = round[0]
             match = models.Match.objects.filter(round__round=round_n, round__class_date__date=date)
@@ -100,13 +125,19 @@ def formview(request, year, month, day, round_n):
                 for playing in mt.playing_set.all():
                     li[playing.player_num] = playing.player.name
                 formset.append(li)
+            for i in range(extra):
+                models.Match.objects.create(round=models.Round.objects.get(round=round_n, class_date__date=date))
+            for match in models.Match.objects.filter(round__round=round_n, round__class_date__date=date, playing=None):
+                formset.append([models.MatchForm(instance=match), "", ""])
+
             return render(request, 'hisakata/form.html', {'year': year,
                                                           'month': month,
                                                           'day': day,
                                                           'round_num': round_n,
                                                           'roundform': roundform,
                                                           'comment': comment,
-                                                          'formset': formset, })
+                                                          'formset': formset,
+                                                          'playerlist': playerlist})
 
     # request.method == 'POST'
     else:
@@ -117,7 +148,9 @@ def formview(request, year, month, day, round_n):
         round_num = request.POST['round']
         csrf = request.POST.get('csrfmiddlewaretoken')
 
-        if models.Round.objects.filter(round=round_num, class_date__date=date).count() > 1:
+        if (round_n != round_num and models.Round.objects.filter(round=round_num,
+                                                                 class_date__date=date).count() == 1) or models.Round.objects.filter(
+            round=round_num, class_date__date=date).count() > 1:
             error_message = "適切な試合番号を入力してください。"
             round_model = models.Round.objects.get(round=round_n, class_date__date=date)
             match = models.Match.objects.filter(round__round=round_n, round__class_date__date=date)
@@ -136,11 +169,14 @@ def formview(request, year, month, day, round_n):
                                                           'formset': formset, })
 
 
+
         else:
-            if models.Round.objects.filter(round=round_num, class_date__date=date).count() == 0:
+            if models.Round.objects.filter(round=round_num, class_date__date=date).count() == 0:  # 新規round
+                # 新規model作成
                 models.Round.objects.create(round=round_num, class_date=models.Date.objects.get(date=date))
                 for i in range(len(winners)):
                     models.Match.objects.create(round=models.Round.objects.get(round=round_num, class_date__date=date))
+                # 元あったmodel削除
                 models.Round.objects.filter(round=round_n, class_date__date=date).delete()
                 for match in models.Match.objects.filter(round__round=round_n, round__class_date__date=date):
                     match.playing_set.delete()
@@ -163,11 +199,20 @@ def formview(request, year, month, day, round_n):
                         if mform.is_valid():
                             if mt.playing_set.count() != 0:  # 既存の試合の場合
                                 for playing in mt.playing_set.all():
+                                    if models.Player.objects.filter(
+                                            name=names[2 * i_match + playing.player_num - 1]).count() == 0:
+                                        models.Player.objects.create(name=names[2 * i_match + playing.player_num - 1])
+
                                     player = models.Player.objects.get(name=names[2 * i_match + playing.player_num - 1])
                                     playing.player = player
 
                                     playing.save()
                             else:  # 新規の試合の場合
+                                if models.Player.objects.filter(name=names[2 * i_match]).count() == 0:
+                                    models.Player.objects.create(name=names[2 * i_match])
+                                if models.Player.objects.filter(name=names[2 * i_match + 1]).count() == 0:
+                                    models.Player.objects.create(name=names[2 * i_match + 1])
+
                                 player1 = models.Player.objects.get(name=names[2 * i_match])
                                 models.Playing.objects.create(player=player1, match=mt, player_num=1)
                                 player2 = models.Player.objects.get(name=names[2 * i_match + 1])
@@ -188,15 +233,14 @@ def formview(request, year, month, day, round_n):
 
 def tableview(request, year, month):
     player = []
-    flag = False
 
     for one in models.Player.objects.all():
+        flag = False
         for match in one.match.all():
             if match.round.class_date.date.year == int(year) and match.round.class_date.date.month == int(month):
                 flag = True
         if flag:
-            player += [one]
-        flag = False
+            player.append(one)
 
     max_num = max([one.match.count() for one in player])
 
@@ -205,3 +249,35 @@ def tableview(request, year, month):
                                                    'player': player,
                                                    'max_num': range(max_num),
                                                    })
+
+
+def playerview(request):
+    year = models.nowyear
+    player_models = []
+    for one in models.Player.objects.all():
+        flag = False
+        for match in one.match.all():
+            if match.round.class_date.date.year == int(year):
+                flag = True
+        if flag:
+            player_models.append(one)
+
+    if request.method == 'GET':
+        players = [models.PlayerForm(instance=one) for one in player_models]
+
+        return render(request, 'hisakata/player.html', {'players': players, })
+
+    else:
+        names = request.POST.getlist('name')
+        grades = request.POST.getlist('grade')
+        csrf = request.POST.get('csrfmiddlewaretoken')
+        i_player = 0
+        for one in player_models:
+            if one.name != names[i_player] or one.grade != grades[i_player]:
+                form = models.PlayerForm(
+                    {'name': names[i_player], 'grade': grades[i_player], 'csrfmiddlewaretoken': csrf}, instance=one)
+                if form.is_valid():
+                    form.save()
+            i_player += 1
+
+        return HttpResponseRedirect(reverse("hisakata:player"))

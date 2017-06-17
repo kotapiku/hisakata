@@ -10,12 +10,23 @@
 
         {% for form in formset %}
             <ul>
-                <li><input type="text" name="name" maxlength="20" value="{{ form.1 }}"> vs <input type="text" name="name" maxlength="20" value="{{ form.2 }}"> 勝者：{{ form.0.winner }} {{ form.0.result }}枚</li>
+                <li><input type="text" name="name" maxlength="20" value="{{ form.1 }}" list="playerlist">
+                    vs
+                    <input type="text" name="name" maxlength="20" value="{{ form.2 }}" list="playerlist">
+                    勝者：{{ form.0.winner }}
+                    {{ form.0.result }}枚
+                </li>
             </ul>
         {% endfor %}
+    <datalist id="playerlist">
+        {% for player in playerlist %}
+            <option value="{{ player.name }}"></option>
+        {% endfor %}
+    </datalist>
 
-        <button type="submit">save</button>
+        <button type="submit">save</button><br>
+        <a href="{% url "hisakata:detail" year month day %}">戻る</a>
     </form>
 
-    <a href="{% url "hisakata:detail" year month day %}">戻る</a>
+
 {% endblock %}

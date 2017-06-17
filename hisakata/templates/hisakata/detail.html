@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>試合記録詳細{{ date.date }}</h1>
+    <h1>{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }}) 試合記録</h1>
 
     <ul>
         {% for round in date.round_set.all %}

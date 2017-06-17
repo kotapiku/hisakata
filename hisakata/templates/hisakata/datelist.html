@@ -6,7 +6,7 @@
     <a href="{% url "hisakata:create" year %}">新規</a>
     <ul>
         {% for date in dates %}
-            <li><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }})</a>
+            <li><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }}) {{ caution|get_item:forloop.counter0 }}</a>
             </li>
         {% endfor %}
     </ul>
