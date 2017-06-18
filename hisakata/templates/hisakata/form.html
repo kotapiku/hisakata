@@ -5,26 +5,38 @@
     <form method="post" action="{% url 'hisakata:edit' year month day round_num %}">
         {% csrf_token %}
 
-        <h2>{{ roundform.round }}試合目</h2>
+        <h2><input type="text" name="round" maxlength="3" value="{{ round_num }}" required>試合目</h2>
         <p><textarea name="comment" rows="4" cols="40">{{ comment }}</textarea><br></p>
 
-        {% for form in formset %}
+        {% for log in logs %}
             <ul>
-                <li><input type="text" name="name" maxlength="20" value="{{ form.1 }}" list="playerlist">
-                    vs
-                    <input type="text" name="name" maxlength="20" value="{{ form.2 }}" list="playerlist">
-                    勝者：{{ form.0.winner }}
-                    {{ form.0.result }}枚
+                <li><input type="text" name="name" maxlength="20" value="{{ log.2 }}" list="playerlist">
+                    {% if log.0 == 0 %}
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=1>
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=0 checked="checked">
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=2>
+                    {% elif log.0 == 1 %}
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=1 checked="checked">
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=0>
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=2>
+                    {% else %}
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=1>
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=0>
+                        <input type="radio" name="winner{{ forloop.counter0 }}" value=2 checked="checked">
+                    {% endif %}
+                    <input type="text" name="name" maxlength="20" value="{{ log.3 }}" list="playerlist">
+                    <input type="number" name="result" max=50 min="0" value="{{ log.1 }}">枚
                 </li>
             </ul>
         {% endfor %}
-    <datalist id="playerlist">
-        {% for player in playerlist %}
-            <option value="{{ player.name }}"></option>
-        {% endfor %}
-    </datalist>
+        <datalist id="playerlist">
+            {% for player in playerlist %}
+                <option value="{{ player.name }}"></option>
+            {% endfor %}
+        </datalist>
 
-        <button type="submit">save</button><br>
+        <button type="submit">save</button>
+        <br>
         <a href="{% url "hisakata:detail" year month day %}">戻る</a>
     </form>
 

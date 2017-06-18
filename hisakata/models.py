@@ -57,10 +57,8 @@ class Match(models.Model):
     def player1(self):
         return self.playing_set.get(player_num=1).player.name
 
-
     def player2(self):
         return self.playing_set.get(player_num=2).player.name
-
 
     def round_id(self):
         return self.round.id
@@ -78,7 +76,7 @@ class Player(models.Model):
     ]
     name = models.CharField(max_length=20)
     match = models.ManyToManyField('Match', through='Playing', through_fields=('player', 'match'))
-    grade = models.IntegerField(choices=GRADE_CHOICE, default=0)  #基本学年(1-4,5),ゲスト6,未登録0
+    grade = models.IntegerField(choices=GRADE_CHOICE, default=0)  # 基本学年(1-4,5),ゲスト6,未登録0
 
     class Meta:
         ordering = ['grade']
@@ -97,13 +95,12 @@ class Playing(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     player_num = models.IntegerField(choices=PLAYER_CHOICES, default=1)
 
-
     @property
     def date(self):
         return self.match.round.class_date.date
 
     class Meta:
-        ordering = ['player_num',]
+        ordering = ['id', ]
 
 
 class DateForm(ModelForm):
@@ -133,4 +130,4 @@ class PlayingForm(ModelForm):
 class PlayerForm(ModelForm):
     class Meta:
         model = Player
-        fields = ['name', 'grade',]
+        fields = ['name', 'grade', ]

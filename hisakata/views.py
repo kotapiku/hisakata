@@ -70,16 +70,6 @@ class MonthListView(generic.ListView):
 def detailview(request, year, month, day):
     date_num = datetime.date(int(year), int(month), int(day))
     date = get_object_or_404(models.Date, date=date_num)
-    #
-    # for round in date.round_set.all():
-    #     flag = False
-    #     for match in models.Match.objects.filter(round__round=round, round__class_date=date, ):
-    #         for playing in match.playing_set.all():
-    #             if not playing.player.name:
-    #                 flag = True
-    #         if flag:
-    #             match.playing_set.all().delete()
-    #             match.delete()
 
     if date.round_set.count() == 0:
         new_game = 1
@@ -90,83 +80,56 @@ def detailview(request, year, month, day):
 
 def formview(request, year, month, day, round_n):
     date = datetime.date(int(year), int(month), int(day))
-
-    formset = []
+    extra = 10
 
     if request.method == 'GET':
+        logs = []
         playerlist = models.Player.objects.all()
-        round = models.Round.objects.filter(round=round_n, class_date__date=date)
-        extra = 10
-        if round.count() == 0:  # 新規
-            models.Round.objects.create(round=round_n, class_date=models.Date.objects.get(date=date))
-            round = models.Round.objects.get(round=round_n, class_date__date=date)
-            roundform = models.RoundForm(instance=round)
-            comment = round.comment
-            for i in range(extra):
-                models.Match.objects.create(round=models.Round.objects.get(round=round_n, class_date__date=date))
-            for match in models.Match.objects.filter(round__round=round_n, round__class_date__date=date):
-                formset.append([models.MatchForm(instance=match), "", ""])
+        match = models.Match.objects.filter(round__round=round_n, round__class_date__date=date)
+        for mt in match:
+            li = [mt.winner, mt.result, "", ""]
+            for playing in mt.playing_set.all():
+                li[playing.player_num + 1] = playing.player.name
+            logs.append(li)
+        for _ in range(extra):
+            logs.append([0, 0, "", ""])
 
-            return render(request, 'hisakata/form.html', {'year': year,
-                                                          'month': month,
-                                                          'day': day,
-                                                          'round_num': round_n,
-                                                          'roundform': roundform,
-                                                          'comment': comment,
-                                                          'formset': formset,
-                                                          'playerlist': playerlist, })
-        else:  # 既存
-            round = round[0]
-            match = models.Match.objects.filter(round__round=round_n, round__class_date__date=date)
-            roundform = models.RoundForm(instance=round)
-            comment = round.comment
-            for mt in match:
-                li = [models.MatchForm(instance=mt), "", ""]
-                for playing in mt.playing_set.all():
-                    li[playing.player_num] = playing.player.name
-                formset.append(li)
-            for i in range(extra):
-                models.Match.objects.create(round=models.Round.objects.get(round=round_n, class_date__date=date))
-            for match in models.Match.objects.filter(round__round=round_n, round__class_date__date=date, playing=None):
-                formset.append([models.MatchForm(instance=match), "", ""])
+        if models.Round.objects.filter(round=round_n, class_date__date=date).count() != 0:
+            comment = models.Round.objects.get(round=round_n, class_date__date=date).comment
+        else:
+            comment = "詠)"
+        return render(request, 'hisakata/form.html',
+                      {'year': year, 'month': month, 'day': day, 'round_num': round_n, 'logs': logs,
+                       'playerlist': playerlist, 'comment': comment})
 
-            return render(request, 'hisakata/form.html', {'year': year,
-                                                          'month': month,
-                                                          'day': day,
-                                                          'round_num': round_n,
-                                                          'roundform': roundform,
-                                                          'comment': comment,
-                                                          'formset': formset,
-                                                          'playerlist': playerlist})
-
-    # request.method == 'POST'
-    else:
+    else:  # request.method == 'POST'
         names = request.POST.getlist('name')
-        winners = request.POST.getlist('winner')
         results = request.POST.getlist('result')
         comment = request.POST['comment']
         round_num = request.POST['round']
         csrf = request.POST.get('csrfmiddlewaretoken')
 
         if (round_n != round_num and models.Round.objects.filter(round=round_num,
-                                                                 class_date__date=date).count() == 1) or models.Round.objects.filter(
-            round=round_num, class_date__date=date).count() > 1:
+                                                                 class_date__date=date).count() == 1):
             error_message = "適切な試合番号を入力してください。"
-            round_model = models.Round.objects.get(round=round_n, class_date__date=date)
+            logs = []
+            playerlist = models.Player.objects.all()
             match = models.Match.objects.filter(round__round=round_n, round__class_date__date=date)
-            roundform = models.RoundForm(instance=round_model)
             for mt in match:
-                li = [models.MatchForm(instance=mt), "", ""]
+                li = [mt.winner, mt.result, "", ""]
                 for playing in mt.playing_set.all():
-                    li[playing.player_num] = playing.player.name
-                formset.append(li)
-            return render(request, 'hisakata/form.html', {'year': year,
-                                                          'month': month,
-                                                          'day': day,
-                                                          'error_message': error_message,
-                                                          'round_num': round_n,
-                                                          'roundform': roundform,
-                                                          'formset': formset, })
+                    li[playing.player_num + 1] = playing.player.name
+                logs.append(li)
+            for _ in range(extra):
+                logs.append([0, 0, "", ""])
+
+            if models.Round.objects.filter(round=round_n, class_date__date=date).count() != 0:
+                comment = models.Round.objects.get(round=round_n, class_date__date=date).comment
+            else:
+                comment = ""
+            return render(request, 'hisakata/form.html',
+                          {'year': year, 'month': month, 'day': day, 'round_num': round_n, 'logs': logs,
+                           'playerlist': playerlist, 'error_message': error_message, 'comment': comment})
 
 
 
@@ -174,54 +137,53 @@ def formview(request, year, month, day, round_n):
             if models.Round.objects.filter(round=round_num, class_date__date=date).count() == 0:  # 新規round
                 # 新規model作成
                 models.Round.objects.create(round=round_num, class_date=models.Date.objects.get(date=date))
-                for i in range(len(winners)):
+                for i in range(len(results)):
                     models.Match.objects.create(round=models.Round.objects.get(round=round_num, class_date__date=date))
-                # 元あったmodel削除
-                models.Round.objects.filter(round=round_n, class_date__date=date).delete()
-                for match in models.Match.objects.filter(round__round=round_n, round__class_date__date=date):
-                    match.playing_set.delete()
-                models.Match.objects.filter(round__round=round_n, round__class_date__date=date).delete()
 
             i_match = 0
 
             round_model = models.Round.objects.get(round=round_num, class_date__date=date)
+            match = models.Match.objects.filter(round__round=round_num, round__class_date__date=date)
             roundform = models.RoundForm({'round': round_num, 'comment': comment, 'csrfmiddlewaretoken': csrf},
                                          instance=round_model)
-            match = models.Match.objects.filter(round__round=round_num, round__class_date__date=date)
             if roundform.is_valid():
                 for mt in match:
                     mform = models.MatchForm(
-                        {'winner': winners[i_match], 'result': results[i_match], 'csrfmiddlewaretoken': csrf},
+                        {'winner': request.POST['winner' + str(i_match)], 'result': results[i_match],
+                         'csrfmiddlewaretoken': csrf},
                         instance=mt)
                     if not names[2 * i_match] or not names[2 * i_match + 1]:
                         mt.delete()
                     else:
                         if mform.is_valid():
-                            if mt.playing_set.count() != 0:  # 既存の試合の場合
-                                for playing in mt.playing_set.all():
-                                    if models.Player.objects.filter(
-                                            name=names[2 * i_match + playing.player_num - 1]).count() == 0:
-                                        models.Player.objects.create(name=names[2 * i_match + playing.player_num - 1])
+                            for playing in mt.playing_set.all():
+                                if models.Player.objects.filter(
+                                        name=names[2 * i_match + playing.player_num - 1]).count() == 0:
+                                    models.Player.objects.create(name=names[2 * i_match + playing.player_num - 1])
 
-                                    player = models.Player.objects.get(name=names[2 * i_match + playing.player_num - 1])
-                                    playing.player = player
+                                player = models.Player.objects.get(name=names[2 * i_match + playing.player_num - 1])
+                                playing.player = player
 
-                                    playing.save()
-                            else:  # 新規の試合の場合
-                                if models.Player.objects.filter(name=names[2 * i_match]).count() == 0:
-                                    models.Player.objects.create(name=names[2 * i_match])
-                                if models.Player.objects.filter(name=names[2 * i_match + 1]).count() == 0:
-                                    models.Player.objects.create(name=names[2 * i_match + 1])
-
-                                player1 = models.Player.objects.get(name=names[2 * i_match])
-                                models.Playing.objects.create(player=player1, match=mt, player_num=1)
-                                player2 = models.Player.objects.get(name=names[2 * i_match + 1])
-                                models.Playing.objects.create(player=player2, match=mt, player_num=2)
-
+                                playing.save()
                             mform.save()
-                            roundform.save()
+                    i_match += 1
+                while i_match < len(results):
+                    if names[2 * i_match] != "" and names[2 * i_match + 1] != "":
+                        models.Match.objects.create(round=round_model, winner=request.POST['winner' + str(i_match)],
+                                                    result=results[i_match])
+                        mt = models.Match.objects.order_by('-id')[0]
+                        if models.Player.objects.filter(name=names[2 * i_match]).count() == 0:
+                            models.Player.objects.create(name=names[2 * i_match])
+                        if models.Player.objects.filter(name=names[2 * i_match + 1]).count() == 0:
+                            models.Player.objects.create(name=names[2 * i_match + 1])
+
+                        player1 = models.Player.objects.get(name=names[2 * i_match])
+                        models.Playing.objects.create(player=player1, match=mt, player_num=1)
+                        player2 = models.Player.objects.get(name=names[2 * i_match + 1])
+                        models.Playing.objects.create(player=player2, match=mt, player_num=2)
 
                     i_match += 1
+                roundform.save()
 
             if models.Match.objects.filter(round__round=round_num, round__class_date__date=date).count() == 0:
                 models.Round.objects.get(round=round_num, class_date__date=date).delete()
