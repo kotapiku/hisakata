@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1526cc73-3d02-43c0-bb88-bba27fca2537" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/home.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/logged_out.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/dateform.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/dateform.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/datelist.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/datelist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/detail.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/form.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/form.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/monthlist.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/monthlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/player.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/player.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/table.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/table.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/tablelist.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/tablelist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/tableyearlist.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/tableyearlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/yearlist.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/yearlist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/urls.py" afterPath="$PROJECT_DIR$/hisakata/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/views.py" afterPath="$PROJECT_DIR$/hisakata/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/urls.py" afterPath="$PROJECT_DIR$/mysite/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
-    </list>
+    <list default="true" id="1526cc73-3d02-43c0-bb88-bba27fca2537" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +41,7 @@
             <entry file="file://$PROJECT_DIR$/hisakata/views.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="286">
-                  <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+                  <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                   </folding>
@@ -70,11 +49,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="player.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="player.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/player.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="315">
-                  <caret line="21" column="58" lean-forward="true" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+                  <caret line="21" column="58" lean-forward="false" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
                   <folding />
                 </state>
               </provider>
@@ -92,7 +71,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="table.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="table.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/table.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="1650">
@@ -905,18 +884,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/player.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="58" lean-forward="true" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/hisakata/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
-          <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+          <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -928,16 +899,6 @@
         <state relative-caret-position="315">
           <caret line="21" column="58" lean-forward="false" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hisakata/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="70" lean-forward="false" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -953,6 +914,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1650">
           <caret line="110" column="41" lean-forward="false" selection-start-line="110" selection-start-column="41" selection-end-line="110" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hisakata/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="70" lean-forward="false" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/player.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="58" lean-forward="false" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
           <folding />
         </state>
       </provider>
