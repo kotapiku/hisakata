@@ -214,24 +214,32 @@ def tableview(request, year, month, grade):
                                                    })
 
 
-def playerview(request):
+def playerview(request, grade):
     gradename = ['未登録', '新入生', '2年生', '3年生', '4年生', '院生・社会人', 'ゲスト']
     year = models.nowyear
     player_models = []
-    for one in models.Player.objects.all():
+    if grade == "":
+        grade_n = 0
+    else:
+        grade_n = int(grade)
+    for one in models.Player.objects.filter(grade=grade_n):
         flag = False
-        for match in one.match.all():
-            if match.round.class_date.date.year == int(year):
-                flag = True
+        if grade_n >= 5:
+            for match in one.match.all():
+                if match.round.class_date.date.year == int(year):
+                    flag = True
+        else:
+            flag = True
         if flag:
             player_models.append(one)
+
 
     if request.method == 'GET':
         players = []
         for player in player_models:
-            players.append([player.name, player.grade])
+            players.append(player.name)
 
-        return render(request, 'hisakata/player.html', {'players': players, 'gradename': gradename, })
+        return render(request, 'hisakata/player.html', {'players': players, 'gradename': gradename, 'grade': grade_n,})
 
     else:
         names = request.POST.getlist('name')
@@ -246,4 +254,4 @@ def playerview(request):
                     form.save()
             i_player += 1
 
-        return HttpResponseRedirect(reverse("hisakata:player"))
+        return HttpResponseRedirect(reverse("hisakata:player", kwargs={'grade': grade_n,}))

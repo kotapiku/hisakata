@@ -28,7 +28,8 @@
             </ul>
         {% endfor %}
     </div>
-    <button type="button" class="btn btn-link"><a href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a></button>
+    <button type="button" class="btn btn-link"><a
+            href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a></button>
     <button type="button" class="btn-link"><a href="{% url "hisakata:datelist" date.date.year %}">戻る</a></button>
 
 {% endblock %}

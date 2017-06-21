@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^table/$', views.tableyearlist, name='tableyearlist'),
     url(r'^table/(?P<year>[0-9]+)/$', views.MonthListView.as_view(), name='tablelist'),
     url(r'^table/(?P<year>[0-9]+)/(?P<month>[0-9]+)/(?P<grade>[0-9]+)/$', views.tableview, name='table'),
-    url(r'^player/$', views.playerview, name='player'),
+    url(r'^player/(?P<grade>[0-9]*)$', views.playerview, name='player'),
 ]
