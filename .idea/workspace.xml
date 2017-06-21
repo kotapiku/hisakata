@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1526cc73-3d02-43c0-bb88-bba27fca2537" name="Default" comment="" />
+    <list default="true" id="1526cc73-3d02-43c0-bb88-bba27fca2537" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hisakata/templates/hisakata/base.html" afterPath="$PROJECT_DIR$/hisakata/templates/hisakata/base.html" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +19,16 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/base.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="210">
+                  <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="yearlist.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/yearlist.html">
               <provider selected="true" editor-type-id="text-editor">
@@ -49,7 +61,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="player.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="player.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/player.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="315">
@@ -155,7 +167,6 @@
         <option value="$PROJECT_DIR$/hisakata/admin.py" />
         <option value="$PROJECT_DIR$/static/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/hisakata/models.py" />
-        <option value="$PROJECT_DIR$/hisakata/templates/hisakata/base.html" />
         <option value="$PROJECT_DIR$/mysite/wsgi.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/accounts/urls.py" />
@@ -180,6 +191,7 @@
         <option value="$PROJECT_DIR$/hisakata/urls.py" />
         <option value="$PROJECT_DIR$/hisakata/templates/hisakata/tablelist.html" />
         <option value="$PROJECT_DIR$/hisakata/templates/hisakata/table.html" />
+        <option value="$PROJECT_DIR$/hisakata/templates/hisakata/base.html" />
       </list>
     </option>
   </component>
@@ -237,7 +249,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mysite" />
+              <option name="myItemId" value="static" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -270,10 +282,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hisakata" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -834,14 +842,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="47" lean-forward="false" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -932,6 +932,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="58" lean-forward="false" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hisakata/templates/hisakata/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="7" lean-forward="true" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
           <folding />
         </state>
       </provider>
