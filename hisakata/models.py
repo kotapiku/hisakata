@@ -4,7 +4,9 @@ from django.core.urlresolvers import reverse
 import datetime
 
 startyear = 2017
+startmonth = 6
 nowyear = datetime.datetime.today().year
+nowmonth = datetime.datetime.today().month
 
 
 class Date(models.Model):

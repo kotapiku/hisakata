@@ -3,6 +3,7 @@
 {% block content %}
 
     <h1>{{ year }}年{{ month }}月記録</h1>
+    <div class="text-right"><button type="button" class="btn-link"><a href="{% url "hisakata:tablelist" year %}">戻る</a></button></div>
 
     <ul class="nav nav-tabs">
         {% if grade == 1 %}

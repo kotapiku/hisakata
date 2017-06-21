@@ -3,10 +3,12 @@
 {% block content %}
 
     <h1>月別記録</h1>
-    <ul>
-    {% for date in object_list %}
-        <li><a href="{% url "hisakata:table" date.date.year date.date.month 1 %}">{{ date.date.month }}月</a></li>
+    <ul class="list-group">
+    {% for month in months %}
+        <li class="list-group-item"><a href="{% url "hisakata:table" year month 1 %}">{{ month }}月記録</a></li>
     {% endfor %}
     </ul>
+
+    <button type="button" class="btn-link"><a href="{% url "hisakata:tableyearlist" %}">戻る</a></button>
 
 {% endblock %}

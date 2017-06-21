@@ -21,15 +21,19 @@ def yearlist(request):
     })
 
 
-def tableyearlist(request):
-    years = range(models.startyear, models.nowyear + 1)
-    return render(request, 'hisakata/tableyearlist.html', {
-        'years': years
+def monthlistview(request, year):
+    if int(year) == models.startyear:
+        months = range(models.startmonth, models.nowmonth + 1)
+    else:
+        months = range(1, models.nowmonth + 1)
+    return render(request, 'hisakata/monthlist.html', {
+        'months': months,
+        'year': year,
     })
 
 
-def datelistview(request, year):
-    dates = models.Date.objects.filter(date__year=year)
+def datelistview(request, year, month):
+    dates = models.Date.objects.filter(date__year=year).filter(date__month=month)
     caution = []
     for date in dates:
         if date.round_set.count() == 0:
@@ -37,12 +41,13 @@ def datelistview(request, year):
         else:
             caution.append(True)
     return render(request, 'hisakata/datelist.html',
-                  {'dates': dates, 'year': year, 'youbi': youbi, 'caution': caution, })
+                  {'dates': dates, 'year': year, 'month': month, 'youbi': youbi, 'caution': caution, })
 
 
 def datecreateview(request, year):
+    month = models.nowmonth
     if request.method == 'GET':
-        return render(request, 'hisakata/dateform.html', {'year': year})
+        return render(request, 'hisakata/dateform.html', {'year': year, 'month': month})
     else:
         error_message = ''
         date = datetime.date(int(request.POST['date'][:4]), int(request.POST['date'][5:7]),
@@ -52,19 +57,36 @@ def datecreateview(request, year):
             error_message = '重複する日付は入力できません'
         if datetime.date.today() < date:
             error_message = '未来の日付は入力できません'
+        if date.year == int(year) and date.month < models.startmonth:
+            error_message = '適切な日付を入力してください'
 
         if error_message:
-            return render(request, 'hisakata/dateform.html', {'year': year, 'error_message': error_message})
+            return render(request, 'hisakata/dateform.html',
+                          {'year': year, 'month': month, 'error_message': error_message})
         else:
             form = models.DateForm(request.POST)
             if form.is_valid():
                 form.save()
-            return HttpResponseRedirect(reverse("hisakata:datelist", kwargs={'year': year}))
+            return HttpResponseRedirect(reverse("hisakata:datelist", kwargs={'year': year, 'month': date.month}))
 
 
-class MonthListView(generic.ListView):
-    model = models.Date
-    template_name = "hisakata/tablelist.html"
+def tableyearlist(request):
+    years = range(models.startyear, models.nowyear + 1)
+    return render(request, 'hisakata/tableyearlist.html', {
+        'years': years
+    })
+
+
+def tablemonthlist(request, year):
+    if int(year) == models.startyear:
+        months = range(models.startmonth, models.nowmonth + 1)
+    else:
+        months = range(1, models.nowmonth + 1)
+    print(months)
+    return render(request, 'hisakata/tablelist.html', {
+        'year': year,
+        'months': months,
+    })
 
 
 def detailview(request, year, month, day):
@@ -180,7 +202,6 @@ def formview(request, year, month, day, round_n):
                         player2 = models.Player.objects.get(name=names[2 * i_match + 1])
                         models.Playing.objects.create(player=player2, match=mt, player_num=2)
 
-
                     i_match += 1
                 roundform.save()
 
@@ -233,13 +254,12 @@ def playerview(request, grade):
         if flag:
             player_models.append(one)
 
-
     if request.method == 'GET':
         players = []
         for player in player_models:
             players.append(player.name)
 
-        return render(request, 'hisakata/player.html', {'players': players, 'gradename': gradename, 'grade': grade_n,})
+        return render(request, 'hisakata/player.html', {'players': players, 'gradename': gradename, 'grade': grade_n, })
 
     else:
         names = request.POST.getlist('name')
@@ -254,4 +274,4 @@ def playerview(request, grade):
                     form.save()
             i_player += 1
 
-        return HttpResponseRedirect(reverse("hisakata:player", kwargs={'grade': grade_n,}))
+        return HttpResponseRedirect(reverse("hisakata:player", kwargs={'grade': grade_n, }))

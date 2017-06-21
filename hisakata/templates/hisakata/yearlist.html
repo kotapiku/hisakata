@@ -4,9 +4,9 @@
 
     <h1>試合記録</h1>
 
-    <ul>
+    <ul class="list-group">
         {% for year in years %}
-            <li><a href="{% url "hisakata:datelist" year %}">{{ year }}年</a></li>
+            <li class="list-group-item"><a href="{% url "hisakata:monthlist" year %}">{{ year }}年</a></li>
         {% endfor %}
     </ul>
 

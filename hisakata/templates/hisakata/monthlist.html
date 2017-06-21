@@ -1,0 +1,14 @@
+{% extends "hisakata/base.html" %}
+
+{% block content %}
+
+    <h1>{{ year }}年試合記録</h1>
+
+    <ul class="list-group">
+        {% for month in months %}
+            <li class="list-group-item"><a href="{% url "hisakata:datelist" year month %}">{{ month }}月</a></li>
+        {% endfor %}
+    </ul>
+    <button type="button" class="btn-link"><a href="{% url "hisakata:yearlist" %}">戻る</a></button>
+
+{% endblock %}

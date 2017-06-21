@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>試合記録</h1>
+    <h1>{{ month }}月試合記録</h1>
     <button type="button" class="btn-link"><a href="{% url "hisakata:create" year %}">新規</a></button>
     <ul class="list-group">
         {% for date in dates %}
@@ -17,5 +17,5 @@
 
         {% endfor %}
     </ul>
-    <button type="button" class="btn-link"><a href="{% url "hisakata:yearlist" %}">戻る</a></button>
+    <button type="button" class="btn-link"><a href="{% url "hisakata:monthlist" year %}">戻る</a></button>
 {% endblock %}
