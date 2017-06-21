@@ -95,9 +95,9 @@ class Playing(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE)
     player_num = models.IntegerField(choices=PLAYER_CHOICES, default=1)
 
-    @property
-    def date(self):
-        return self.match.round.class_date.date
+    # @property
+    # def date(self):
+    #     return self.match.round.class_date.date
 
     class Meta:
         ordering = ['id', ]

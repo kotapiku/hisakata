@@ -33,9 +33,9 @@ def datelistview(request, year):
     caution = []
     for date in dates:
         if date.round_set.count() == 0:
-            caution.append('!')
+            caution.append(False)
         else:
-            caution.append('')
+            caution.append(True)
     return render(request, 'hisakata/datelist.html',
                   {'dates': dates, 'year': year, 'youbi': youbi, 'caution': caution, })
 
@@ -193,14 +193,15 @@ def formview(request, year, month, day, round_n):
                                                                            'day': day}))
 
 
-def tableview(request, year, month):
+def tableview(request, year, month, grade):
     player = []
 
     for one in models.Player.objects.all():
         flag = False
-        for match in one.match.all():
-            if match.round.class_date.date.year == int(year) and match.round.class_date.date.month == int(month):
-                flag = True
+        if one.grade == int(grade):
+            for match in one.match.all():
+                if match.round.class_date.date.year == int(year) and match.round.class_date.date.month == int(month):
+                    flag = True
         if flag:
             player.append(one)
 
@@ -210,10 +211,12 @@ def tableview(request, year, month):
                                                    'month': month,
                                                    'player': player,
                                                    'max_num': range(max_num),
+                                                   'grade': int(grade),
                                                    })
 
 
 def playerview(request):
+    gradename = ['未登録', '新入生', '2年生', '3年生', '4年生', '院生・社会人', 'ゲスト']
     year = models.nowyear
     player_models = []
     for one in models.Player.objects.all():
@@ -225,9 +228,11 @@ def playerview(request):
             player_models.append(one)
 
     if request.method == 'GET':
-        players = [models.PlayerForm(instance=one) for one in player_models]
+        players = []
+        for player in player_models:
+            players.append([player.name, player.grade])
 
-        return render(request, 'hisakata/player.html', {'players': players, })
+        return render(request, 'hisakata/player.html', {'players': players, 'gradename': gradename, })
 
     else:
         names = request.POST.getlist('name')

@@ -4,26 +4,31 @@
 
     <h1>{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }}) 試合記録</h1>
 
-    <ul>
+    <div class="panel panel-info">
         {% for round in date.round_set.all %}
-            <p><a type="button"
-                  href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目</a>
-            </p>
-            <p>{{ round.comment }}</p>
-            {% for match in round.match_set.all %}
-                {% if match.winner == 0 %}
-                    <li>  {{ match.player1 }} vs {{ match.player2 }}</li>
-                {% elif match.winner == 1 %}
-                    <li>○ {{ match.player1 }} vs {{ match.player2 }} ({{ match.result }})</li>
-                {% elif match.winner == 2 %}
-                    <li>  {{ match.player1 }} vs {{ match.player2 }} ◯ ({{ match.result }})</li>
-                {% endif %}
-            {% endfor %}
+            <div class="panel-heading"><a type="button"
+                                          href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目</a> {{ round.comment }}
+            </div>
+
+            <ul class="list-group">
+
+                {% for match in round.match_set.all %}
+                    {% if match.winner == 0 %}
+                        <li class="list-group-item">  {{ match.player1 }} vs {{ match.player2 }}</li>
+                    {% elif match.winner == 1 %}
+                        <li class="list-group-item">◯ {{ match.player1 }} vs {{ match.player2 }} ({{ match.result }})
+                        </li>
+                    {% elif match.winner == 2 %}
+                        <li class="list-group-item">  {{ match.player1 }} vs {{ match.player2 }} ◯
+                            ({{ match.result }})
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
         {% endfor %}
-        <a href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a>
-
-    </ul>
-
-    <a href="{% url "hisakata:datelist" date.date.year %}">戻る</a>
+    </div>
+    <button type="button" class="btn btn-link"><a href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a></button>
+    <button type="button" class="btn-link"><a href="{% url "hisakata:datelist" date.date.year %}">戻る</a></button>
 
 {% endblock %}

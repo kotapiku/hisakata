@@ -4,10 +4,17 @@
 
     <h1>試合記録</h1>
     <a href="{% url "hisakata:create" year %}">新規</a>
-    <ul>
+    <ul class="list-group">
         {% for date in dates %}
-            <li><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }}) {{ caution|get_item:forloop.counter0 }}</a>
+            {% if caution|get_item:forloop.counter0 %}
+            <li class="list-group-item"><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日
+                ({{ youbi|get_item:date.date.weekday }})</a>
+            {% else %}
+                <li class="list-group-item"><a href="{% url "hisakata:detail" date.date.year date.date.month date.date.day %}">{{ date.date.month }}月 {{ date.date.day }}日
+                ({{ youbi|get_item:date.date.weekday }}) <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span></a>
+            {% endif %}
             </li>
+
         {% endfor %}
     </ul>
     <a href="{% url "hisakata:yearlist" %}">戻る</a>
