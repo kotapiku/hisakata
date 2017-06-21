@@ -1,8 +1,9 @@
 {% extends "hisakata/base.html" %}
 
-{% block title %}Hisakata | Table{% endblock %}
+{% block title %}Hisakata{% endblock %}
 
 {% block content %}
+
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -21,7 +22,7 @@
                     <li>
                         <a href="{% url "hisakata:yearlist" %}">記録ノート<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="{% url "hisakata:tableyearlist" %}">対戦記録表</a>
                     </li>
                     <li>
@@ -34,15 +35,5 @@
             </div>
         </div>
     </nav>
-
-    <p></p>
-
-    <ul class="list-group">
-    {% for month in months %}
-        <li class="list-group-item"><a href="{% url "hisakata:table" year month 1 %}">{{ month }}月記録</a></li>
-    {% endfor %}
-    </ul>
-
-    <button type="button" class="btn-link"><a href="{% url "hisakata:tableyearlist" %}">戻る</a></button>
 
 {% endblock %}

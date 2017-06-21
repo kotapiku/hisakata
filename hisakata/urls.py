@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -16,4 +17,9 @@ urlpatterns = [
     url(r'^table/(?P<year>[0-9]+)/$', views.tablemonthlist, name='tablelist'),
     url(r'^table/(?P<year>[0-9]+)/(?P<month>[0-9]+)/(?P<grade>[0-9]+)/$', views.tableview, name='table'),
     url(r'^player/(?P<grade>[0-9]*)$', views.playerview, name='player'),
+    url(r'^$', views.homeview, name='homeview'),
+    url(r'^login/$', auth_views.login,
+        {'template_name': 'hisakata/login.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout,
+        {'template_name': 'hisakata/logged_out.html'}, name='logout'),
 ]

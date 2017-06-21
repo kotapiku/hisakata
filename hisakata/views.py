@@ -1,6 +1,6 @@
 import datetime
 from django.shortcuts import render, get_object_or_404, reverse
-from django.views import generic
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
 from . import models
@@ -14,13 +14,18 @@ def get_item(list, num):
     return list[num]
 
 
+@login_required
+def homeview(request):
+    return render(request, 'hisakata/home.html')
+
+@login_required
 def yearlist(request):
     years = range(models.startyear, models.nowyear + 1)
     return render(request, 'hisakata/yearlist.html', {
         'years': years
     })
 
-
+@login_required
 def monthlistview(request, year):
     if int(year) == models.startyear:
         months = range(models.startmonth, models.nowmonth + 1)
@@ -31,7 +36,7 @@ def monthlistview(request, year):
         'year': year,
     })
 
-
+@login_required
 def datelistview(request, year, month):
     dates = models.Date.objects.filter(date__year=year).filter(date__month=month)
     caution = []
@@ -43,7 +48,7 @@ def datelistview(request, year, month):
     return render(request, 'hisakata/datelist.html',
                   {'dates': dates, 'year': year, 'month': month, 'youbi': youbi, 'caution': caution, })
 
-
+@login_required
 def datecreateview(request, year):
     month = models.nowmonth
     if request.method == 'GET':
@@ -69,14 +74,14 @@ def datecreateview(request, year):
                 form.save()
             return HttpResponseRedirect(reverse("hisakata:datelist", kwargs={'year': year, 'month': date.month}))
 
-
+@login_required
 def tableyearlist(request):
     years = range(models.startyear, models.nowyear + 1)
     return render(request, 'hisakata/tableyearlist.html', {
         'years': years
     })
 
-
+@login_required
 def tablemonthlist(request, year):
     if int(year) == models.startyear:
         months = range(models.startmonth, models.nowmonth + 1)
@@ -88,7 +93,7 @@ def tablemonthlist(request, year):
         'months': months,
     })
 
-
+@login_required
 def detailview(request, year, month, day):
     date_num = datetime.date(int(year), int(month), int(day))
     date = get_object_or_404(models.Date, date=date_num)
@@ -99,7 +104,7 @@ def detailview(request, year, month, day):
         new_game = int(date.round_set.last().round[0]) + 1
     return render(request, 'hisakata/detail.html', {'date': date, 'new_game': new_game, 'youbi': youbi})
 
-
+@login_required
 def formview(request, year, month, day, round_n):
     date = datetime.date(int(year), int(month), int(day))
     extra = 10
@@ -212,7 +217,7 @@ def formview(request, year, month, day, round_n):
                                                                            'month': month,
                                                                            'day': day}))
 
-
+@login_required
 def tableview(request, year, month, grade):
     player = []
 
@@ -234,7 +239,7 @@ def tableview(request, year, month, grade):
                                                    'grade': int(grade),
                                                    })
 
-
+@login_required
 def playerview(request, grade):
     gradename = ['未登録', '新入生', '2年生', '3年生', '4年生', '院生・社会人', 'ゲスト']
     year = models.nowyear

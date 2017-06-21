@@ -66,3 +66,4 @@ wcwidth==0.1.7
 websocket-client==0.40.0
 whitenoise==3.3.0
 widgetsnbextension==1.2.6
+psycopg2==2.7.1
