@@ -137,8 +137,6 @@ def formview(request, year, month, day, round_n):
             if models.Round.objects.filter(round=round_num, class_date__date=date).count() == 0:  # 新規round
                 # 新規model作成
                 models.Round.objects.create(round=round_num, class_date=models.Date.objects.get(date=date))
-                for i in range(len(results)):
-                    models.Match.objects.create(round=models.Round.objects.get(round=round_num, class_date__date=date))
 
             i_match = 0
 
@@ -181,6 +179,7 @@ def formview(request, year, month, day, round_n):
                         models.Playing.objects.create(player=player1, match=mt, player_num=1)
                         player2 = models.Player.objects.get(name=names[2 * i_match + 1])
                         models.Playing.objects.create(player=player2, match=mt, player_num=2)
+
 
                     i_match += 1
                 roundform.save()

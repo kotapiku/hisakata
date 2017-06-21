@@ -7,7 +7,7 @@
     <div class="panel panel-info">
         {% for round in date.round_set.all %}
             <div class="panel-heading"><a type="button"
-                                          href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目</a> {{ round.comment }}
+                                          href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目 {{ round.comment }}</a>
             </div>
 
             <ul class="list-group">
