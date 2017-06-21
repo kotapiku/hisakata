@@ -1,5 +1,7 @@
 {% extends "hisakata/base.html" %}
 
+{% block title %}Hisakata | Detail{% endblock %}
+
 {% block content %}
     {{ error_message }}
     <form class="form-group" method="post" action="{% url 'hisakata:edit' year month day round_num %}">

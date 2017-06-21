@@ -1,5 +1,7 @@
 {% extends "hisakata/base.html" %}
 
+{% block title %}Hisakata | Detail{% endblock %}
+
 {% block content %}
 
     <h1>{{ date.date.month }}月 {{ date.date.day }}日 ({{ youbi|get_item:date.date.weekday }}) 試合記録</h1>
