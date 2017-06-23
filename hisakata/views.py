@@ -310,3 +310,9 @@ def playerview(request, grade):
             i_player += 1
 
         return HttpResponseRedirect(reverse("hisakata:player", kwargs={'grade': grade_n, }))
+
+@login_required
+def deletemodel(request, year, month, day):
+    models.Date.objects.get(date=datetime.date(int(year), int(month), int(day))).delete()
+
+    return datelistview(request, year, month)

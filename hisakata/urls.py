@@ -22,4 +22,5 @@ urlpatterns = [
         {'template_name': 'hisakata/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout,
         {'template_name': 'hisakata/logged_out.html'}, name='logout'),
+    url(r'^delete/(?P<year>[0-9]+)/(?P<month>[0-9]+)/(?P<day>[0-9]+)/$', views.deletemodel, name='delete'),
 ]
