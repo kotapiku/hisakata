@@ -32,9 +32,9 @@
             </div>
         {% else %}
             <p>試合結果がありません</p>
+            <a class="btn btn-danger" href="{% url "hisakata:delete" date.date.year date.date.month date.date.day %}">削除</a>
         {% endif %}
 
-        <a class="btn btn-danger" href="{% url "hisakata:delete" date.date.year date.date.month date.date.day %}">削除</a>
         <a class="btn btn-primary"
            href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a>
         <a class="btn btn-default" href="{% url "hisakata:datelist" date.date.year date.date.month %}">戻る</a>

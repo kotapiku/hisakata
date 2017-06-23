@@ -6,9 +6,6 @@
     <div class="container">
 
         <h1>{{ year }}年{{ month }}月</h1>
-        <div class="text-right">
-            <a class="btn btn-default" href="{% url "hisakata:tablelist" year %}">戻る</a>
-        </div>
 
         <ul class="nav nav-tabs">
             {% if grade == 1 %}
@@ -42,7 +39,7 @@
                 <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
                 <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
             {% endif %}
-
+            <li role="presentation" class="pull-right"><a href="{% url "hisakata:tablelist" year %}">戻る</a></li>
         </ul>
 
         <p></p>
