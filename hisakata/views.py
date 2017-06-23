@@ -1,12 +1,14 @@
 import datetime
 from django.shortcuts import render, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpRequest
 
 from . import models
 from django.template.defaulttags import register
 
 youbi = ['月', '火', '水', '木', '金', '土', '日']
+now_year = models.nowyear
+now_month = models.nowmonth
 
 
 @register.filter
@@ -16,14 +18,18 @@ def get_item(list, num):
 
 @login_required
 def homeview(request):
-    return render(request, 'hisakata/home.html')
+    return datelistview(request, now_year, now_month)
+
 
 @login_required
 def yearlist(request):
     years = range(models.startyear, models.nowyear + 1)
     return render(request, 'hisakata/yearlist.html', {
-        'years': years
+        'years': years,
+        'page': 'detail',
+        'nowyear': now_year, 'nowmonth': now_month,
     })
+
 
 @login_required
 def monthlistview(request, year):
@@ -34,7 +40,10 @@ def monthlistview(request, year):
     return render(request, 'hisakata/monthlist.html', {
         'months': months,
         'year': year,
+        'page': 'detail',
+        'nowyear': now_year, 'nowmonth': now_month,
     })
+
 
 @login_required
 def datelistview(request, year, month):
@@ -46,13 +55,16 @@ def datelistview(request, year, month):
         else:
             caution.append(True)
     return render(request, 'hisakata/datelist.html',
-                  {'dates': dates, 'year': year, 'month': month, 'youbi': youbi, 'caution': caution, })
+                  {'dates': dates, 'year': year, 'month': month, 'youbi': youbi, 'caution': caution,
+                   'page': 'detail', 'nowyear': now_year, 'nowmonth': now_month, })
+
 
 @login_required
 def datecreateview(request, year):
     month = models.nowmonth
     if request.method == 'GET':
-        return render(request, 'hisakata/dateform.html', {'year': year, 'month': month})
+        return render(request, 'hisakata/dateform.html',
+                      {'year': year, 'month': month, 'page': 'detail', 'nowyear': now_year, 'nowmonth': now_month, })
     else:
         error_message = ''
         date = datetime.date(int(request.POST['date'][:4]), int(request.POST['date'][5:7]),
@@ -67,19 +79,23 @@ def datecreateview(request, year):
 
         if error_message:
             return render(request, 'hisakata/dateform.html',
-                          {'year': year, 'month': month, 'error_message': error_message})
+                          {'year': year, 'month': month, 'error_message': error_message, 'page': 'detail', })
         else:
             form = models.DateForm(request.POST)
             if form.is_valid():
                 form.save()
             return HttpResponseRedirect(reverse("hisakata:datelist", kwargs={'year': year, 'month': date.month}))
 
+
 @login_required
 def tableyearlist(request):
     years = range(models.startyear, models.nowyear + 1)
     return render(request, 'hisakata/tableyearlist.html', {
-        'years': years
+        'years': years,
+        'page': 'table',
+        'nowyear': now_year, 'nowmonth': now_month,
     })
+
 
 @login_required
 def tablemonthlist(request, year):
@@ -91,7 +107,10 @@ def tablemonthlist(request, year):
     return render(request, 'hisakata/tablelist.html', {
         'year': year,
         'months': months,
+        'page': 'table',
+        'nowyear': now_year, 'nowmonth': now_month,
     })
+
 
 @login_required
 def detailview(request, year, month, day):
@@ -102,7 +121,10 @@ def detailview(request, year, month, day):
         new_game = 1
     else:
         new_game = int(date.round_set.last().round[0]) + 1
-    return render(request, 'hisakata/detail.html', {'date': date, 'new_game': new_game, 'youbi': youbi})
+    return render(request, 'hisakata/detail.html',
+                  {'date': date, 'new_game': new_game, 'youbi': youbi, 'page': 'detail', 'nowyear': now_year,
+                   'nowmonth': now_month, })
+
 
 @login_required
 def formview(request, year, month, day, round_n):
@@ -127,7 +149,8 @@ def formview(request, year, month, day, round_n):
             comment = "詠)"
         return render(request, 'hisakata/form.html',
                       {'year': year, 'month': month, 'day': day, 'round_num': round_n, 'logs': logs,
-                       'playerlist': playerlist, 'comment': comment})
+                       'playerlist': playerlist, 'comment': comment, 'page': 'detail', 'nowyear': now_year,
+                       'nowmonth': now_month, })
 
     else:  # request.method == 'POST'
         names = request.POST.getlist('name')
@@ -156,7 +179,8 @@ def formview(request, year, month, day, round_n):
                 comment = ""
             return render(request, 'hisakata/form.html',
                           {'year': year, 'month': month, 'day': day, 'round_num': round_n, 'logs': logs,
-                           'playerlist': playerlist, 'error_message': error_message, 'comment': comment})
+                           'playerlist': playerlist, 'error_message': error_message, 'comment': comment,
+                           'page': 'detail', 'nowyear': now_year, 'nowmonth': now_month, })
 
 
 
@@ -217,6 +241,7 @@ def formview(request, year, month, day, round_n):
                                                                            'month': month,
                                                                            'day': day}))
 
+
 @login_required
 def tableview(request, year, month, grade):
     player = []
@@ -237,7 +262,10 @@ def tableview(request, year, month, grade):
                                                    'player': player,
                                                    'max_num': range(max_num),
                                                    'grade': int(grade),
+                                                   'page': 'table',
+                                                   'nowyear': now_year, 'nowmonth': now_month,
                                                    })
+
 
 @login_required
 def playerview(request, grade):
@@ -264,7 +292,9 @@ def playerview(request, grade):
         for player in player_models:
             players.append(player.name)
 
-        return render(request, 'hisakata/player.html', {'players': players, 'gradename': gradename, 'grade': grade_n, })
+        return render(request, 'hisakata/player.html',
+                      {'players': players, 'gradename': gradename, 'grade': grade_n, 'page': 'player',
+                       'nowyear': now_year, 'nowmonth': now_month, })
 
     else:
         names = request.POST.getlist('name')

@@ -3,103 +3,73 @@
 {% block title %}Hisakata | Detail{% endblock %}
 
 {% block content %}
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
+    <div class="container">
 
-                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
-                        data-target="#navbars" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url "hisakata:homeview" %}">Hisakata</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbars">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="{% url "hisakata:yearlist" %}">記録ノート<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li>
-                        <a href="{% url "hisakata:tableyearlist" %}">対戦記録表</a>
-                    </li>
-                    <li>
-                        <a href="{% url "hisakata:player" 0 %}">名簿</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-right">
-                    <li><a href="{% url "hisakata:logout" %}">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    {{ error_message }}
-    <form class="form-group" method="post" action="{% url 'hisakata:edit' year month day round_num %}">
-        {% csrf_token %}
-        <div class="form-inline">
-            <div class="form-group">
-                <div class="input-group">
-                    <input class="form-control" type="text" name="round" maxlength="3" value="{{ round_num }}"
-                           required>
-                    <div class="input-group-addon">試合目</div>
+        {{ error_message }}
+        <form class="form-group" method="post" action="{% url 'hisakata:edit' year month day round_num %}">
+            {% csrf_token %}
+            <div class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="text" name="round" maxlength="3" value="{{ round_num }}"
+                               required>
+                        <div class="input-group-addon">試合目</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <p><textarea class="form-control" name="comment" rows="4" cols="40">{{ comment }}</textarea><br></p>
+            <p><textarea class="form-control" name="comment" rows="4" cols="40">{{ comment }}</textarea><br></p>
 
 
             {% for log in logs %}
                 <div class="form-inline">
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.2 }}"
-                           list="playerlist">
-                    <div class="checkbox">
-                        {% if log.0 == 0 %}
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
-                                   value=1>
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}" value=0
-                                   checked="checked">
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
-                                   value=2>
-                        {% elif log.0 == 1 %}
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}" value=1
-                                   checked="checked">
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
-                                   value=0>
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
-                                   value=2>
-                        {% else %}
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
-                                   value=1>
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
-                                   value=0>
-                            <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}" value=2
-                                   checked="checked">
-                        {% endif %}
+                        <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.2 }}"
+                               list="playerlist">
+                        <div class="checkbox">
+                            {% if log.0 == 0 %}
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
+                                       value=1>
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}" value=0
+                                       checked="checked">
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
+                                       value=2>
+                            {% elif log.0 == 1 %}
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}" value=1
+                                       checked="checked">
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
+                                       value=0>
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
+                                       value=2>
+                            {% else %}
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
+                                       value=1>
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
+                                       value=0>
+                                <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}" value=2
+                                       checked="checked">
+                            {% endif %}
+                        </div>
+                        <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.3 }}"
+                               list="playerlist">
+                        <input class="form-control" type="number" name="result" max=50 min="0" value="{{ log.1 }}">枚
+
+
                     </div>
-                    <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.3 }}"
-                           list="playerlist">
-                    <input class="form-control" type="number" name="result" max=50 min="0" value="{{ log.1 }}">枚
-
-
-                </div>
                 </div>
             {% endfor %}
 
-        <datalist id="playerlist">
-            {% for player in playerlist %}
-                <option value="{{ player.name }}"></option>
-            {% endfor %}
-        </datalist>
+            <datalist id="playerlist">
+                {% for player in playerlist %}
+                    <option value="{{ player.name }}"></option>
+                {% endfor %}
+            </datalist>
 
-        <button type="submit" class="btn btn-primary">save</button>
+            <button type="submit" class="btn btn-primary">save</button>
 
-        <button type="button" class="btn-link"><a href="{% url "hisakata:detail" year month day %}">戻る</a></button>
-    </form>
-
+            <a class="btn btn-default" href="{% url "hisakata:detail" year month day %}">戻る</a>
+        </form>
+    </div>
 
 {% endblock %}

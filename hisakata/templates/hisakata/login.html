@@ -1,27 +1,29 @@
 {% extends "hisakata/base.html" %}
 
 {% block content %}
+    <div class="container">
 
-{% if form.errors %}
-<p>再入力してください。</p>
-{% endif %}
+        {% if form.errors %}
+            <p>再入力してください。</p>
+        {% endif %}
 
-<form class="form-group" method="post" action="{% url 'hisakata:login' %}">
-{% csrf_token %}
-<table class="table">
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+        <form class="form-group" method="post" action="{% url 'hisakata:login' %}">
+            {% csrf_token %}
+            <table class="table">
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
 
-<button type="submit" class="btn btn-default">login</button>
-<!--<input type="submit" value="login"> -->
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
+            <button type="submit" class="btn btn-default">login</button>
+            <!--<input type="submit" value="login"> -->
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+    </div>
 
 {% endblock %}
