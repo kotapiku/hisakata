@@ -1,1 +1,1 @@
-web : gunicorn Hisakata.wsgi
+web : gunicorn mysite.wsgi
