@@ -7,6 +7,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
 </head>
 <body>
+
+{% if not nowyear and not nowmonth%}
+    {% now "Y" as nowyear %}
+    {% now "n" as nowmonth %}
+{% endif %}
+
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -44,9 +50,9 @@
                 <a href="{% url "hisakata:player" 0 %}">名簿</a>
                 </li>
             </ul>
-            <ul class="nav navbar-right">
-                <li><a href="{% url "hisakata:logout" %}">Logout</a></li>
-            </ul>
+            <div class="nav navbar-nav navbar-right">
+                <a class="btn btn-default navbar-btn" href="{% url "hisakata:logout" %}">Logout</a>
+            </div>
         </div>
     </div>
 </nav>

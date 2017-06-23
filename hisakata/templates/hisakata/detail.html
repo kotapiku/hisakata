@@ -6,32 +6,37 @@
     <div class="container">
         <h1>{{ date.date.month }}月{{ date.date.day }}日({{ youbi|get_item:date.date.weekday }})</h1>
 
-        <div class="panel panel-info">
-            {% for round in date.round_set.all %}
-                <div class="panel-heading"><a type="button"
-                                              href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目 {{ round.comment }}</a>
-                </div>
+        {% if date.round_set.all %}
+            <div class="panel panel-info">
+                {% for round in date.round_set.all %}
+                    <div class="panel-heading"><a type="button"
+                                                  href="{% url "hisakata:edit" date.date.year date.date.month date.date.day round.round %}">{{ round.round }}試合目 {{ round.comment }}</a>
+                    </div>
 
-                <ul class="list-group">
+                    <ul class="list-group">
+                        {% for match in round.match_set.all %}
+                            {% if match.winner == 0 %}
+                                <li class="list-group-item">  {{ match.player1 }} vs {{ match.player2 }}</li>
+                            {% elif match.winner == 1 %}
+                                <li class="list-group-item">◯ {{ match.player1 }} vs {{ match.player2 }}
+                                    ({{ match.result }})
+                                </li>
+                            {% elif match.winner == 2 %}
+                                <li class="list-group-item">  {{ match.player1 }} vs {{ match.player2 }} ◯
+                                    ({{ match.result }})
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>試合結果がありません</p>
+        {% endif %}
 
-                    {% for match in round.match_set.all %}
-                        {% if match.winner == 0 %}
-                            <li class="list-group-item">  {{ match.player1 }} vs {{ match.player2 }}</li>
-                        {% elif match.winner == 1 %}
-                            <li class="list-group-item">◯ {{ match.player1 }} vs {{ match.player2 }} ({{ match.result }})
-                            </li>
-                        {% elif match.winner == 2 %}
-                            <li class="list-group-item">  {{ match.player1 }} vs {{ match.player2 }} ◯
-                                ({{ match.result }})
-                            </li>
-                        {% endif %}
-
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-        </div>
         <a class="btn btn-primary"
            href="{% url "hisakata:edit" date.date.year date.date.month date.date.day new_game %}">新規</a>
         <a class="btn btn-default" href="{% url "hisakata:datelist" date.date.year date.date.month %}">戻る</a>
     </div>
+
 {% endblock %}
