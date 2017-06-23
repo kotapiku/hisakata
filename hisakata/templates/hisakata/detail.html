@@ -31,7 +31,7 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>試合結果がありません</p>
+            <p>試合結果がありません<a type="button" href="{% url "hisakata:delete" %}"></a></p>
         {% endif %}
 
         <a class="btn btn-primary"
