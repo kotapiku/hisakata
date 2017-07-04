@@ -21,10 +21,4 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^hisakata/', include('hisakata.urls', namespace='hisakata')),
     url(r'^admin/', admin.site.urls),
-]
-
-urlpatterns += url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
-
-#
-# if settings.DEBUG:
-#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
