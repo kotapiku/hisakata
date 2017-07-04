@@ -60,8 +60,7 @@ def datelistview(request, year, month):
 
 
 @login_required
-def datecreateview(request, year):
-    month = models.nowmonth
+def datecreateview(request, year, month):
     if request.method == 'GET':
         return render(request, 'hisakata/dateform.html',
                       {'year': year, 'month': month, 'page': 'detail', 'nowyear': now_year, 'nowmonth': now_month, })

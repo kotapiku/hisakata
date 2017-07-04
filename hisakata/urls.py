@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^detail/$', views.yearlist, name='yearlist'),
     url(r'^detail/(?P<year>[0-9]+)/$', views.monthlistview, name='monthlist'),
     url(r'^detail/(?P<year>[0-9]+)/(?P<month>[0-9]+)/$', views.datelistview, name='datelist'),
-    url(r'^detail/(?P<year>[0-9]+)/create/$', views.datecreateview, name='create'),
+    url(r'^detail/(?P<year>[0-9]+)/(?P<month>[0-9]+)/create/$', views.datecreateview, name='create'),
     url(r'^detail/(?P<year>[0-9]+)/(?P<month>[0-9]+)/(?P<day>[0-9]+)/$', views.detailview, name='detail'),
     url(r'^detail/(?P<year>[0-9]+)/(?P<month>[0-9]+)/(?P<day>[0-9]+)/edit/(?P<round_n>[0-9]+-*[0-9]*)/$',
         views.formview,
