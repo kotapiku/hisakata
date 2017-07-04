@@ -141,7 +141,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = ['*']
 
-DEBUG = False
+DEBUG = True
 
 ADMINS = (('kotapiku', 'ice08235523@gmail.com'),)
 
