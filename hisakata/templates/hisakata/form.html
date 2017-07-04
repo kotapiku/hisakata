@@ -26,7 +26,7 @@
                     <div class="form-group">
 
                         <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.2 }}"
-                               list="playerlist">
+                               autocomplete="on" list="playerlist">
                         <div class="checkbox">
                             {% if log.0 == 0 %}
                                 <input class="form-control" type="radio" name="winner{{ forloop.counter0 }}"
@@ -52,7 +52,7 @@
                             {% endif %}
                         </div>
                         <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.3 }}"
-                               list="playerlist">
+                               autocomplete="on" list="playerlist">
                         <input class="form-control" type="number" name="result" max=50 min="0" value="{{ log.1 }}">枚
 
 
