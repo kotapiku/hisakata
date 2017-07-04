@@ -143,6 +143,8 @@ ALLOWED_HOSTS = ['*']
 
 DEBUG = False
 
+ADMINS = (('kotapiku', 'ice08235523@gmail.com'),)
+
 try:
     from .local_settings import *
 except ImportError:
