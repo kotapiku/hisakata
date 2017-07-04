@@ -245,25 +245,31 @@ def formview(request, year, month, day, round_n):
 @login_required
 def tableview(request, year, month, grade):
     player = []
+    nums = [0, ]
 
     for one in models.Player.objects.all():
         flag = False
+        num = 0
         if one.grade == int(grade):
             for match in one.match.all():
                 if match.round.class_date.date.year == int(year) and match.round.class_date.date.month == int(month):
                     flag = True
+                    num += 1
         if flag:
             player.append(one)
+            nums.append(num)
 
-    max_num = max([one.match.count() for one in player])
+    max_num = max(nums)
+    none_flag = (player == [])
 
-    return render(request, 'hisakata/table.html', {'year': year,
-                                                   'month': month,
+    return render(request, 'hisakata/table.html', {'year': int(year),
+                                                   'month': int(month),
                                                    'player': player,
                                                    'max_num': range(max_num),
                                                    'grade': int(grade),
                                                    'page': 'table',
                                                    'nowyear': now_year, 'nowmonth': now_month,
+                                                   'none_flag': none_flag,
                                                    })
 
 
@@ -310,6 +316,7 @@ def playerview(request, grade):
             i_player += 1
 
         return HttpResponseRedirect(reverse("hisakata:player", kwargs={'grade': grade_n, }))
+
 
 @login_required
 def deletemodel(request, year, month, day):
