@@ -48,7 +48,8 @@
                 <div class="form-inline">
 
 
-                    <input class="form-control" type="text" name="name" data-toggle="completer" data-suggest="true" data-source="{{ playerlist }}"
+                    <input class="form-control" type="text" name="name" data-toggle="completer" data-suggest="true"
+                           data-source="{{ playerlist }}"
                            maxlength="20" value="{{ log.2 }}">
 
                     <div class="radio position">
@@ -84,7 +85,8 @@
                                                                checked="checked"></label>
                         {% endif %}
                     </div>
-                    <input class="form-control" type="text" name="name" data-toggle="completer" data-suggest="true" data-source="{{ playerlist }}"
+                    <input class="form-control" type="text" name="name" data-toggle="completer" data-suggest="true"
+                           data-source="{{ playerlist }}"
                            maxlength="20" value="{{ log.3 }}">
                     <div class="input-group"><input class="form-control" type="number" name="result" max=50 min="0"
                                                     value="{{ log.1 }}">
@@ -95,11 +97,12 @@
 
             {% endfor %}
 
-    <button type="submit" class="btn btn-primary">save</button>
-    <a class="btn btn-default" href="{% url "hisakata:detail" year month day %}">戻る</a>
+            <button type="submit" class="btn btn-primary">save</button>
+            <a class="btn btn-default" href="{% url "hisakata:detail" year month day %}">戻る</a>
 
-    </form>
+        </form>
     </div>
+
 
 
 {% endblock %}
