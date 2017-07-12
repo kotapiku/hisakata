@@ -1,4 +1,5 @@
 {% extends "hisakata/base.html" %}
+{% load staticfiles %}
 
 {% block title %}Hisakata | Detail{% endblock %}
 
@@ -38,7 +39,7 @@
                     </div>
                 </div>
             </div>
-        <p></p>
+            <p></p>
 
             <p><textarea class="form-control" name="comment" rows="4" cols="40">{{ comment }}</textarea><br></p>
 
@@ -46,66 +47,59 @@
             {% for log in logs %}
                 <div class="form-inline">
 
-                <input class="form-control" type="text" name="name"
-                       maxlength="20" value="{{ log.2 }}"
-                       list="playerlist">
 
-                <div class="radio position">
-                    {% if log.0 == 0 %}
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}"
-                                                           value=1></label>
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}" value=0
-                                                           checked="checked"></label>
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}"
-                                                           value=2></label>
-                    {% elif log.0 == 1 %}
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}" value=1
-                                                           checked="checked"></label>
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}"
-                                                           value=0></label>
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}"
-                                                           value=2></label>
-                    {% else %}
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}"
-                                                           value=1></label>
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}"
-                                                           value=0></label>
-                        <label class="radio-inline"><input class="form-control" type="radio"
-                                                           name="winner{{ forloop.counter0 }}" value=2
-                                                           checked="checked"></label>
-                    {% endif %}
-                </div>
-                <input class="form-control" type="text" name="name" maxlength="20" value="{{ log.3 }}"
-                       list="playerlist">
-                <div class="input-group"><input class="form-control" type="number" name="result" max=50 min="0"
-                                                value="{{ log.1 }}"><div class="input-group-addon">枚</div></div>
-                <div class="visible-xs"><br></br></div>
+                    <input class="form-control" type="text" name="name" data-toggle="completer" data-suggest="true" data-source="{{ playerlist }}"
+                           maxlength="20" value="{{ log.2 }}">
+
+                    <div class="radio position">
+                        {% if log.0 == 0 %}
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}"
+                                                               value=1></label>
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}" value=0
+                                                               checked="checked"></label>
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}"
+                                                               value=2></label>
+                        {% elif log.0 == 1 %}
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}" value=1
+                                                               checked="checked"></label>
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}"
+                                                               value=0></label>
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}"
+                                                               value=2></label>
+                        {% else %}
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}"
+                                                               value=1></label>
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}"
+                                                               value=0></label>
+                            <label class="radio-inline"><input class="form-control" type="radio"
+                                                               name="winner{{ forloop.counter0 }}" value=2
+                                                               checked="checked"></label>
+                        {% endif %}
+                    </div>
+                    <input class="form-control" type="text" name="name" data-toggle="completer" data-suggest="true" data-source="{{ playerlist }}"
+                           maxlength="20" value="{{ log.3 }}">
+                    <div class="input-group"><input class="form-control" type="number" name="result" max=50 min="0"
+                                                    value="{{ log.1 }}">
+                        <div class="input-group-addon">枚</div>
+                    </div>
+                    <div class="visible-xs"><br></br></div>
                 </div>
 
             {% endfor %}
 
+    <button type="submit" class="btn btn-primary">save</button>
+    <a class="btn btn-default" href="{% url "hisakata:detail" year month day %}">戻る</a>
 
-            <datalist id="playerlist">
-                {% for player in playerlist %}
-                    <option value="{{ player.name }}"></option>
-                {% endfor %}
-            </datalist>
-            </div>
-
-            <button type="submit" class="btn btn-primary">save</button>
-            <a class="btn btn-default" href="{% url "hisakata:detail" year month day %}">戻る</a>
-
-        </form>
+    </form>
     </div>
-
 
 
 {% endblock %}

@@ -233,6 +233,9 @@
                                 <option value=6 selected>{{ gradename|get_item:6 }}</option>
                             {% endif %}
                         </select></div>
+                    {% if player.playing == {} %}
+                    <a class="btn btn-danger" href="{% url "hisakata:delete" date.date.year date.date.month date.date.day %}">削除</a>
+                    {% endif %}
                     </div>
                 </div>
 </div>

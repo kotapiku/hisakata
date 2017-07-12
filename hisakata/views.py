@@ -132,7 +132,11 @@ def formview(request, year, month, day, round_n):
 
     if request.method == 'GET':
         logs = []
-        playerlist = models.Player.objects.all()
+        playerlist = []
+        players = models.Player.objects.all()
+        for player in players:
+            playerlist.append(player.name)
+
         match = models.Match.objects.filter(round__round=round_n, round__class_date__date=date)
         for mt in match:
             li = [mt.winner, mt.result, "", ""]
