@@ -5,15 +5,21 @@
     <meta charset="UTF-8">
     <title>{% block title %}Hisakata{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}"/>
+    <meta name="viewport" content="width-device-width, initial-scale=1.0, user-scaleable=no">
 </head>
 <body>
+<style>body {
+    padding-top: 70px;
+}
 
-{% if not nowyear and not nowmonth%}
+</style>
+
+{% if not nowyear and not nowmonth %}
     {% now "Y" as nowyear %}
     {% now "n" as nowmonth %}
 {% endif %}
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
 
@@ -51,7 +57,9 @@
                 </li>
             </ul>
             <div class="nav navbar-nav navbar-right">
-                <a class="btn btn-default navbar-btn" href="{% url "hisakata:logout" %}">Logout</a>
+                <li>
+                    <a href="{% url "hisakata:logout" %}">Logout</a>
+                </li>
             </div>
         </div>
     </div>
@@ -60,6 +68,5 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
-
 </body>
 </html>

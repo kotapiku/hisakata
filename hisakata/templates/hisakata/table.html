@@ -7,40 +7,113 @@
 
         <h1>{{ year }}年{{ month }}月</h1>
 
-        <ul class="nav nav-tabs">
-            {% if grade == 1 %}
-                <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
-                    {% elif grade == 2 %}
-                <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
-                    {% elif grade == 3 %}
-                <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
-                    {% elif grade == 4 %}
-                <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
-                    {% elif grade == 5 %}
-                <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
-            {% endif %}
-            <li role="presentation" class="pull-right"><a href="{% url "hisakata:tablelist" year %}">戻る</a></li>
-        </ul>
+        <div class="hidden-xs">
+            <ul class="nav nav-tabs">
+                {% if grade == 1 %}
+                    <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 1 %}">新入生</a>
+                    </li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
+                        {% elif grade == 2 %}
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 2 %}">2年生</a>
+                    </li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
+                        {% elif grade == 3 %}
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 3 %}">3年生</a>
+                    </li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
+                        {% elif grade == 4 %}
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 4 %}">4年生</a>
+                    </li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
+                        {% elif grade == 5 %}
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
+                {% endif %}
+                <li role="presentation" class="pull-right"><a href="{% url "hisakata:tablelist" year %}">戻る</a></li>
+            </ul>
+        </div>
+        <div class="visible-xs">
+            <ul class="nav nav-pills">
+                {% if grade == 1 %}
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:table" year month 1 %}"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">新入生<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a>
+                        </ul>
+                    </li>
+                {% elif grade == 2 %}
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:table" year month 2 %}"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">2年生<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a></li>
+                        </ul>
+                    </li>
+                {% elif grade == 3 %}
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:table" year month 3 %}"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">3年生<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a></li>
+                        </ul>
+                    </li>
+                {% elif grade == 4 %}
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:table" year month 4 %}"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">4年生<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 5 %}">院生・社会人</a></li>
+                        </ul>
+                    </li>
+                {% elif grade == 5 %}
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:table" year month 5 %}"
+                           role="button"
+                           aria-haspopup="true" aria-expanded="false">院生・社会人<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 1 %}">新入生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 2 %}">2年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 3 %}">3年生</a></li>
+                            <li role="presentation"><a href="{% url "hisakata:table" year month 4 %}">4年生</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+
+                <li role="presentation" class="pull-right"><a href="{% url "hisakata:tablelist" year %}">戻る</a></li>
+            </ul>
+        </div>
 
         <p></p>
         {% if none_flag %}

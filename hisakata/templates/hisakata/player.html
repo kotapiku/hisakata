@@ -4,76 +4,177 @@
 
 {% block content %}
     <div class="container">
-        <ul class="nav nav-tabs">
-            {% if grade == 0 %}
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% elif grade == 1 %}
-                <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% elif grade == 2 %}
-                <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% elif grade == 3 %}
-                <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% elif grade == 4 %}
-                <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% elif grade == 5 %}
-                <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% elif grade == 6 %}
-                <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
-                <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
-                <li role="presentation" class="active"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
-            {% endif %}
+        <div class="hidden-xs">
+            <ul class="nav nav-tabs">
 
-        </ul>
+                {% if grade == 0 %}
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% elif grade == 1 %}
+                    <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% elif grade == 2 %}
+                    <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% elif grade == 3 %}
+                    <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% elif grade == 4 %}
+                    <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% elif grade == 5 %}
+                    <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% elif grade == 6 %}
+                    <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                    <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                    <li role="presentation" class="active"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="visible-xs">
+            <ul class="nav nav-pills">
+                {% if grade == 0 %}
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 0 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">未登録<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                    </ul>
+                </li>
+                {% elif grade == 1 %}
+                    <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 1 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">新入生<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                    </ul>
+                </li>
+                {% elif grade == 2 %}
+                    <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 2 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">2年生<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                    </ul>
+                </li>
+                {% elif grade == 3 %}
+                    <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 3 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">3年生<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                    </ul>
+                </li>
+                {% elif grade == 4 %}
+                    <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 4 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">4年生<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                    </ul>
+                </li>
+                {% elif grade == 5 %}
+                    <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 5 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">院生・社会人<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 6 %}">ゲスト</a></li>
+                    </ul>
+                </li>
+                {% elif grade == 6 %}
+                    <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url "hisakata:player" 6 %}" role="button"
+                       aria-haspopup="true" aria-expanded="false">ゲスト<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a href="{% url "hisakata:player" 0 %}">未登録</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 1 %}">新入生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 2 %}">2年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 3 %}">3年生</a></li>
+                        <li role="presentation"><a href="{% url "hisakata:player" 4 %}">4年生</a>
+                        <li role="presentation"><a href="{% url "hisakata:player" 5 %}">院生・社会人</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
 
         <p></p>
         <form class="form-group" method="post" action="{% url 'hisakata:player' grade %}">
             {% csrf_token %}
 
             {% for player in players %}
+
                 <div class="form-inline">
+                <div class="row">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="name" value="{{ player }}">
-                        <select class="form-control" name="grade">
+                        <div class="col-xs-5"><input class="form-control" type="text" name="name" value="{{ player }}"></div>
+                        <div class="col-xs-4 col-sm-offset-1"><select class="form-control" name="grade">
                             {% if grade == 0 %}
                                 <option value=0 selected>{{ gradename|get_item:0 }}</option>
                                 <option value=1>{{ gradename|get_item:1 }}</option>
@@ -131,9 +232,10 @@
                                 <option value=5>{{ gradename|get_item:5 }}</option>
                                 <option value=6 selected>{{ gradename|get_item:6 }}</option>
                             {% endif %}
-                        </select>
+                        </select></div>
                     </div>
                 </div>
+</div>
 
             {% endfor %}
 

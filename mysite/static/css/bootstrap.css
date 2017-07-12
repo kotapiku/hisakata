@@ -6754,4 +6754,11 @@ button.close {
     display: none !important;
   }
 }
+
+.row-center.va-middle > [class*='col-'] {
+vertical-align:middle;
+}
+.row-center.va-bottom > [class*='col-'] {
+vertical-align:bottom;
+}
 /*# sourceMappingURL=bootstrap.css.map */
