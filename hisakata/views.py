@@ -68,12 +68,14 @@ def datecreateview(request, year, month):
         error_message = ''
         date = datetime.date(int(request.POST['date'][:4]), int(request.POST['date'][5:7]),
                              int(request.POST['date'][8:]))
+        print(date.year, date.month, date.day)
+        print(year, models.startmonth)
 
         if models.Date.objects.filter(date=date).count() != 0:
             error_message = '重複する日付は入力できません'
         if datetime.date.today() < date:
             error_message = '未来の日付は入力できません'
-        if date.year == int(year) and date.month < models.startmonth:
+        if date.year == models.startyear and date.month < models.startmonth:
             error_message = '適切な日付を入力してください'
 
         if error_message:
@@ -279,7 +281,6 @@ def tableview(request, year, month, grade):
 @login_required
 def playerview(request, grade):
     gradename = ['未登録', '新入生', '2年生', '3年生', '4年生', '院生・社会人', 'ゲスト']
-    year = models.nowyear
     player_models = []
     if grade == "":
         grade_n = 0
@@ -289,7 +290,7 @@ def playerview(request, grade):
         flag = False
         if grade_n >= 5:
             for match in one.match.all():
-                if match.round.class_date.date.year == int(year):
+                if match.round.class_date.date.year == int(now_year):
                     flag = True
         else:
             flag = True
@@ -324,5 +325,5 @@ def playerview(request, grade):
 @login_required
 def deletemodel(request, year, month, day):
     models.Date.objects.get(date=datetime.date(int(year), int(month), int(day))).delete()
-
     return datelistview(request, year, month)
+

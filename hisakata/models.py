@@ -7,6 +7,7 @@ startyear = 2017
 startmonth = 6
 nowyear = datetime.datetime.today().year
 nowmonth = datetime.datetime.today().month
+nowdate = datetime.datetime.today().date
 
 
 class Date(models.Model):
