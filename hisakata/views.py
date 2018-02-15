@@ -327,3 +327,7 @@ def deletemodel(request, year, month, day):
     models.Date.objects.get(date=datetime.date(int(year), int(month), int(day))).delete()
     return datelistview(request, year, month)
 
+@login_required
+def deleteplayer(request, name, grade):
+    models.Player.objects.get(name=name, grade=grade).delete()
+    return playerview(request, grade=grade)

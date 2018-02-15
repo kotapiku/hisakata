@@ -234,7 +234,7 @@
                             {% endif %}
                         </select></div>
                     {% if not player.playing %}
-                    <a class="btn btn-danger" href="{% url "hisakata:delete" date.date.year date.date.month date.date.day %}">削除</a>
+                    <a class="btn btn-danger" href="{% url "hisakata:deleteplayer" player grade %}">削除</a>
                     {% endif %}
                     </div>
                 </div>
